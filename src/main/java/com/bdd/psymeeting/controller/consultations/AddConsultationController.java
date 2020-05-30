@@ -38,8 +38,6 @@ import java.util.ResourceBundle;
 
 public class AddConsultationController implements Initializable, InitController {
 
-    // TODO mettre la checkbox "Couple"
-
     // --------------------
     //   Attributes
     // --------------------
@@ -378,6 +376,7 @@ public class AddConsultationController implements Initializable, InitController 
             // check if name and last name is correct
             try {
                 Patient tmp_patient = Patient.getPatientByEmail(email_field.getText());
+                System.out.println(tmp_patient);
                 if (tmp_patient != null) {
                     if (tmp_patient.getName().equals(name_field.getText().toUpperCase()) && tmp_patient.getLastName().equals(last_name_field.getText().toUpperCase())) {
                         patients.add(tmp_patient);
@@ -393,7 +392,7 @@ public class AddConsultationController implements Initializable, InitController 
             int lastPrimaryKeyPatient = Patient.getLastPrimaryKeyId();
             int lastPrimaryKeyUser = User.getLastUserId();
 
-            if (lastPrimaryKeyPatient != 0 && lastPrimaryKeyUser != 0) {
+            if (lastPrimaryKeyPatient != -1 && lastPrimaryKeyUser != -1) {
 
                 // add new patient
                 Patient tmpPatient = new Patient(lastPrimaryKeyPatient + lastIDPatient, name_field.getText(), last_name_field.getText(), true);
@@ -408,7 +407,6 @@ public class AddConsultationController implements Initializable, InitController 
 
                 return true;
             } else return false;
-
         }
     }
 
