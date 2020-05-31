@@ -53,21 +53,21 @@ public class Feedback {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, consultationID);
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) this.getCommentary().add(resultSet.getString(1));
+            while (resultSet.next()) this.getCommentary().add(resultSet.getString(1));
 
             // get posture
             query = "select posture from feedback join posture p on feedback.feedback_id = p.feedback_id where consultation_id = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, consultationID);
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) this.getPosture().add(resultSet.getString(1));
+            while (resultSet.next()) this.getPosture().add(resultSet.getString(1));
 
             // get keyword
             query = "select keyword from feedback join keyword k on feedback.feedback_id = k.feedback_id where consultation_id = ?";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, consultationID);
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) this.getKeyword().add(resultSet.getString(1));
+            while (resultSet.next()) this.getKeyword().add(resultSet.getString(1));
 
 
         } catch (SQLException ex) {
@@ -75,8 +75,8 @@ public class Feedback {
             ex.printStackTrace();
             System.out.println(ex.getErrorCode() + " : " + ex.getMessage());
         } finally {
-            if( preparedStatement != null ) preparedStatement.close();
-            if( resultSet != null ) resultSet.close();
+            if (preparedStatement != null) preparedStatement.close();
+            if (resultSet != null) resultSet.close();
         }
     }
 

@@ -244,7 +244,6 @@ public class ConsultationHistoric {
         Info consultations methods
      */
 
-
     protected TextArea createBody(Consultation consultation) {
 
         // print age
@@ -259,7 +258,8 @@ public class ConsultationHistoric {
                     .append(patient_info.get(1)).append(" ")
                     .append(patient_info.get(4)).append("\n");
         });
-        if (consultation.isInRelation() && consultation.getPatients().size() > 1) patientsInfo.append("Les patients sont venues en couple");
+        if (consultation.isInRelation() && consultation.getPatients().size() > 1)
+            patientsInfo.append("Les patients sont venues en couple");
 
         // get Feedback Info
         StringBuilder feedbackInfo = new StringBuilder();
