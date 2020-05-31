@@ -66,10 +66,14 @@ public class HomeController extends ConsultationHistoric implements Initializabl
         loadConsultationsWeek.setOnSucceeded(event -> {
             System.out.println("Loading consultations of the week succeeded !");
             fillGridPane(loadConsultationsWeek.getValue());
+            previousPagination.setDisable(false);
+            nextPagination.setDisable(false);
             loadConsultationsWeek.reset();
         });
         loadConsultationsWeek.setOnFailed(event -> {
             System.out.println("Loading consultation of the week failed !");
+            previousPagination.setDisable(false);
+            nextPagination.setDisable(false);
             loadConsultationsWeek.reset();
         });
 
@@ -191,6 +195,8 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     }
 
     public void pagination(ActionEvent actionEvent) {
+        previousPagination.setDisable(true);
+        nextPagination.setDisable(true);
         if (actionEvent.getSource().equals(previousPagination)) indexWeek--;
         else indexWeek++;
         // refresh home page

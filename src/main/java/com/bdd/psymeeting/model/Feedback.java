@@ -26,35 +26,57 @@ public class Feedback {
     // --------------------
 
     // Feedback from DB
-    public Feedback(int consultationID) {
+    public Feedback(int consultationID) throws SQLException {
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
         try (Connection connection = App.database.getConnection()) {
 
+            this.consultation_id = consultationID;
             this.commentaries = new ArrayList<>();
             this.keywords = new ArrayList<>();
             this.postures = new ArrayList<>();
 
-            String query = "select C2.COMMENTARY, K.KEYWORD, P.POSTURE \n" +
-                    "from FEEDBACK\n" +
-                    "join COMMENTARY C2 on FEEDBACK.FEEDBACK_ID = C2.FEEDBACK_ID\n" +
-                    "join KEYWORD K on FEEDBACK.FEEDBACK_ID = K.FEEDBACK_ID\n" +
-                    "join POSTURE P on FEEDBACK.FEEDBACK_ID = P.FEEDBACK_ID\n" +
-                    "where CONSULTATION_ID = ?";
-            PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setInt(1, consultationID);
-            ResultSet resultSet = preparedStmt.executeQuery();
+            // get feedback attribute
+            String query = "select feedback_id, indicator from feedback where feedback_id = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, consultationID);
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 this.feedbackID = resultSet.getInt(1);
-                this.commentaries.add(resultSet.getString(2));
-                this.keywords.add(resultSet.getString(3));
-                this.postures.add(resultSet.getString(4));
-                this.indicator = resultSet.getInt(5);
-                this.consultation_id = resultSet.getInt(6);
+                this.indicator = resultSet.getInt(2);
             }
+
+            // get commentary
+            query = "select commentary from feedback join commentary c on feedback.feedback_id = c.feedback_id where consultation_id = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, consultationID);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) this.getCommentary().add(resultSet.getString(1));
+
+            // get posture
+            query = "select posture from feedback join posture p on feedback.feedback_id = p.feedback_id where consultation_id = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, consultationID);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) this.getPosture().add(resultSet.getString(1));
+
+            // get keyword
+            query = "select keyword from feedback join keyword k on feedback.feedback_id = k.feedback_id where consultation_id = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, consultationID);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) this.getKeyword().add(resultSet.getString(1));
+
 
         } catch (SQLException ex) {
             System.out.println("Error add name or last name to the user (3)");
             ex.printStackTrace();
             System.out.println(ex.getErrorCode() + " : " + ex.getMessage());
+        } finally {
+            if( preparedStatement != null ) preparedStatement.close();
+            if( resultSet != null ) resultSet.close();
         }
     }
 

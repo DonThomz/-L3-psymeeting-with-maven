@@ -63,7 +63,6 @@ public class ConsultationHistoric {
         }
     };
 
-
     protected ConsultationHistoric() {
         removeConsultationService.setOnSucceeded(event -> {
             if (removeConsultationService.getValue()) {
@@ -191,6 +190,7 @@ public class ConsultationHistoric {
         dialog.show();
     }
 
+
     /**
      * create the dialog pane to modify a consultation
      *
@@ -239,6 +239,12 @@ public class ConsultationHistoric {
     }
 
 
+
+    /*
+        Info consultations methods
+     */
+
+
     protected TextArea createBody(Consultation consultation) {
 
         // print age
@@ -253,14 +259,13 @@ public class ConsultationHistoric {
                     .append(patient_info.get(1)).append(" ")
                     .append(patient_info.get(4)).append("\n");
         });
-        if (consultation.isInRelation()) patientsInfo.append("Les patients sont venues en couple");
+        if (consultation.isInRelation() && consultation.getPatients().size() > 1) patientsInfo.append("Les patients sont venues en couple");
 
         // get Feedback Info
         StringBuilder feedbackInfo = new StringBuilder();
 
         // info price and pay mode
         feedbackInfo.append("Prix : ").append(consultation.getPrice()).append(" €, payé avec : ").append(consultation.getPayMode());
-
         // info feedback commentary, key words, postures, indicator
         feedbackInfo.append("\n\nRetour de séance").append("\n\n\tCommentaire : \n").append(consultation.getFeedback().getCommentary());
         if (consultation.getFeedback().getKeyword() != null)

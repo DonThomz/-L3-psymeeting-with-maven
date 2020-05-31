@@ -53,8 +53,12 @@ public class Consultation extends RecursiveTreeObject<Consultation> {
         this.consultationID = consultationID;
 
         // get feedback
-        this.feedback = new Feedback(this.consultationID);
-
+        try {
+            this.feedback = new Feedback(this.consultationID);
+        } catch (SQLException exception) {
+            System.err.println("Error loading feedback");
+            exception.printStackTrace();
+        }
         try (Connection connection = App.database.getConnection()) {
 
             String query;
