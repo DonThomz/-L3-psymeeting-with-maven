@@ -196,7 +196,7 @@ public class AddConsultationController implements Initializable, InitController 
         });
 
         addPatient.setOnSucceeded(event -> {
-            if (warring != null ) form_box.getChildren().remove(warring);
+            if (warring != null) form_box.getChildren().remove(warring);
             System.out.println("Task adding patient succeeded ! ");
             if (addPatient.getValue()) addPatientSucceeded();
             else {

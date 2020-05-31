@@ -114,6 +114,7 @@ public class ConsultationController extends ConsultationHistoric implements Init
     private void setupFilterBox() {
         filter.getItems().add(new Label("plus récent"));
         filter.getItems().add(new Label("moins récent"));
+        filter.setValue(filter.getItems().get(1));
         filter.setStyle("-fx-font-size: 14");
         filter.valueProperty().addListener((observable, oldValue, newValue) -> {
             dateFilter();
