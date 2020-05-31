@@ -44,17 +44,18 @@ public class LoginController implements Initializable, InitController {
      * The reusable service allows the creation of multiple Tasks.
      * See https://fabrice-bouye.developpez.com/tutoriels/javafx/gui-service-tache-de-fond-thread-javafx/ for reference.
      */
-    final Service<Boolean> loginService = new Service<Boolean>() {
+    final Service<Boolean> loginService = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
-            return new Task<Boolean>() {
+            return new Task<>() {
                 @Override
                 protected Boolean call() throws Exception {
                     System.out.println("Task starting");
-                    if (App.database.connectionDatabase(username_field.getText(), password_field.getText()))
+                    if (App.database.connectionDatabase(username_field.getText(), password_field.getText())) {
                         return true;
-                    else
+                    } else {
                         throw new Exception("Failed to connect. (This error should be silent and caught by 'loginService.setOnFailed')");
+                    }
                 }
             };
         }

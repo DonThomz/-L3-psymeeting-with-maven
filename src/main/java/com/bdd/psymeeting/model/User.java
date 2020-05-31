@@ -137,13 +137,7 @@ public class User {
      * @return true if exist or false if not
      */
     public static boolean userExist(String email) throws SQLException {
-        Statement statement = null;
-        ResultSet resultSet = null;
-        try (Connection connection = App.database.getConnection()) {
-
-            statement = connection.createStatement();
-
-            resultSet = statement.executeQuery("select email from user_app");
+        try (Connection connection = App.database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery("select email from user_app")) {
 
             // Read results
             while (resultSet.next()) {
@@ -155,9 +149,6 @@ public class User {
             throwable.printStackTrace();
             System.err.println("Error checking if user with email " + email + " exists in DB");
             return false;
-        } finally {
-            if (statement != null) statement.close();
-            if (resultSet != null) resultSet.close();
         }
         return false;
     }

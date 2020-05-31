@@ -36,10 +36,10 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     public Label weekLabel;
     public GridPane scheduleGrid;
     private int indexWeek;
-    Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<ArrayList<Consultation>>() {
+    Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<>() {
         @Override
         protected Task<ArrayList<Consultation>> createTask() {
-            return new Task<ArrayList<Consultation>>() {
+            return new Task<>() {
                 @Override
                 protected ArrayList<Consultation> call() {
                     return Consultation.getConsultationWeek(indexWeek);

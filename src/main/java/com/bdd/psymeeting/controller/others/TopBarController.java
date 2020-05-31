@@ -55,7 +55,7 @@ public class TopBarController implements Initializable {
     public void addFullName() {
         final String username = App.current_user.getUsername();
         // create new task
-        Task<String> fullNameTask = new Task<String>() {
+        Task<String> fullNameTask = new Task<>() {
             @Override
             protected String call() throws Exception {
                 //System.out.println(Thread.currentThread().getName());

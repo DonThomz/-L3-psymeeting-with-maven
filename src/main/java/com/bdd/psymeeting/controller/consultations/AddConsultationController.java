@@ -67,10 +67,10 @@ public class AddConsultationController implements Initializable, InitController 
     // --------------------
     //   Services
     // --------------------
-    Service<Map<Timestamp, Boolean>> loadTimeSlots = new Service<Map<Timestamp, Boolean>>() {
+    Service<Map<Timestamp, Boolean>> loadTimeSlots = new Service<>() {
         @Override
         protected Task<Map<Timestamp, Boolean>> createTask() {
-            return new Task<Map<Timestamp, Boolean>>() {
+            return new Task<>() {
                 @Override
                 protected Map<Timestamp, Boolean> call() {
                     return Consultation.getTimeSlots(date_field.getValue());
@@ -79,10 +79,10 @@ public class AddConsultationController implements Initializable, InitController 
         }
     };
 
-    Service<ArrayList<Patient>> loadPrePatients = new Service<ArrayList<Patient>>() {
+    Service<ArrayList<Patient>> loadPrePatients = new Service<>() {
         @Override
         protected Task<ArrayList<Patient>> createTask() {
-            return new Task<ArrayList<Patient>>() {
+            return new Task<>() {
                 @Override
                 protected ArrayList<Patient> call() throws Exception {
                     return Patient.getSimplyPatientsProfiles();
@@ -97,10 +97,10 @@ public class AddConsultationController implements Initializable, InitController 
     private ArrayList<Patient> preLoadPatients;
     private ArrayList<Patient> patients;
     private ArrayList<User> users;
-    Service<Boolean> addPatient = new Service<Boolean>() {
+    Service<Boolean> addPatient = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
-            return new Task<Boolean>() {
+            return new Task<>() {
                 @Override
                 protected Boolean call() {
                     return addPatientTask();
@@ -109,10 +109,10 @@ public class AddConsultationController implements Initializable, InitController 
         }
     };
     private boolean confirmation;
-    Service<Boolean> updateNewConsultation = new Service<Boolean>() {
+    Service<Boolean> updateNewConsultation = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
-            return new Task<Boolean>() {
+            return new Task<>() {
                 @Override
                 protected Boolean call() {
                     return updateNewConsultation();
@@ -553,8 +553,7 @@ public class AddConsultationController implements Initializable, InitController 
     //  Update methods
     // --------------------
     private void updatePatientLabel() {
-        if (patients.size() >= 2) coupleBox.setVisible(true);
-        else coupleBox.setVisible(false);
+        coupleBox.setVisible(patients.size() >= 2);
         if (patients.size() == 3) {
             add_patient_button.setDisable(true);
         } else {
