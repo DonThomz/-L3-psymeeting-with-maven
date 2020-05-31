@@ -8,6 +8,7 @@ import com.bdd.psymeeting.App;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class Patient {
@@ -213,7 +214,7 @@ public class Patient {
     // --------------------
 
     public void setBirthday(LocalDate birthday) {
-        this.birthday = new Date(birthday.toEpochDay());
+        this.birthday = Date.valueOf(birthday);
     }
 
     public String getGender() {
@@ -392,11 +393,11 @@ public class Patient {
 
             preparedStatement.setString(1, this.getName().toUpperCase());
             preparedStatement.setString(2, this.getLastName().toUpperCase());
-            preparedStatement.setDate(3, new Date(this.getBirthday().getTime()));
+            preparedStatement.setDate(3,   this.getBirthday());
             preparedStatement.setString(4, this.getGender() != null ? this.getGender() : "");
             preparedStatement.setString(5, this.getRelationship() != null ? this.getRelationship() : "");
             preparedStatement.setString(6, this.getDiscoveryWay() != null ? this.getDiscoveryWay() : "");
-            preparedStatement.setInt(7, this.getPatientId());
+            preparedStatement.setInt(7,    this.getPatientId());
 
             preparedStatement.executeUpdate();
 
