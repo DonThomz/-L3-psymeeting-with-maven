@@ -100,7 +100,7 @@ public class AddConsultationController implements Initializable, InitController 
     Service<Boolean> addPatient = new Service<Boolean>() {
         @Override
         protected Task<Boolean> createTask() {
-            return new Task<Boolean>() {
+            return new Task<>() {
                 @Override
                 protected Boolean call() {
                     return addPatientTask();
@@ -157,11 +157,11 @@ public class AddConsultationController implements Initializable, InitController 
         validator_field = new RequiredFieldValidator();
         validator_field.setMessage("Le champs est obligatoire");
 
-        // Init listener
-        initListeners();
-
         // Init service
         initServices();
+
+        // Init listener
+        initListeners();
 
         if (loadPrePatients.getState() == Task.State.READY) {
             loadPrePatients.start();
@@ -211,7 +211,10 @@ public class AddConsultationController implements Initializable, InitController 
             addPatient.reset();
         });
 
-        addPatient.setOnFailed(event -> System.out.println("Task adding patient failed !"));
+        addPatient.setOnFailed(event -> {
+            System.out.println("Task adding patient failed !");
+            addPatient.reset();
+        });
 
         loadPrePatients.setOnSucceeded(event -> {
             preloadPatientsComboBox.setItems(FXCollections.observableArrayList(loadPrePatients.getValue()));
@@ -376,7 +379,6 @@ public class AddConsultationController implements Initializable, InitController 
             // check if name and last name is correct
             try {
                 Patient tmp_patient = Patient.getPatientByEmail(email_field.getText());
-                System.out.println(tmp_patient);
                 if (tmp_patient != null) {
                     if (tmp_patient.getName().equals(name_field.getText().toUpperCase()) && tmp_patient.getLastName().equals(last_name_field.getText().toUpperCase())) {
                         patients.add(tmp_patient);
@@ -391,7 +393,6 @@ public class AddConsultationController implements Initializable, InitController 
         } else { // create a patient and a user
             int lastPrimaryKeyPatient = Patient.getLastPrimaryKeyId();
             int lastPrimaryKeyUser = User.getLastUserId();
-
             if (lastPrimaryKeyPatient != -1 && lastPrimaryKeyUser != -1) {
 
                 // add new patient

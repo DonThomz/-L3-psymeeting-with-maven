@@ -296,6 +296,7 @@ public class Patient {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 patient = new Patient(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), false);
+                return patient;
             }
         } catch (SQLException throwable) {
             System.err.println("Error get patient with email " + email);
