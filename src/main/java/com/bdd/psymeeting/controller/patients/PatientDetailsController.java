@@ -48,7 +48,7 @@ public class PatientDetailsController extends ConsultationHistoric implements In
     private RequiredFieldValidator validator_field;
     private ArrayList<Job> jobs;
 
-    Service<Boolean> updateUserDetails = new Service<>() {
+    final Service<Boolean> updateUserDetails = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
             return new Task<>() {

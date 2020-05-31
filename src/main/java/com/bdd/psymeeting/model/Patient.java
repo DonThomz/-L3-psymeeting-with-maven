@@ -16,8 +16,8 @@ public class Patient {
     //   Attributes
     // --------------------
 
-    protected static int KID_AGE_LIMIT = 12;
-    protected static int TEEN_AGE_LIMIT = 18;
+    protected static final int KID_AGE_LIMIT = 12;
+    protected static final int TEEN_AGE_LIMIT = 18;
     private int patientId;
     private String name;
     private String lastName;

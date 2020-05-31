@@ -36,7 +36,7 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     public Label weekLabel;
     public GridPane scheduleGrid;
     private int indexWeek;
-    Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<>() {
+    final Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<>() {
         @Override
         protected Task<ArrayList<Consultation>> createTask() {
             return new Task<>() {
@@ -204,7 +204,7 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     }
 
     private static class TimeSlots {
-        String[] timeSlots;
+        final String[] timeSlots;
 
         private TimeSlots() {
             timeSlots = new String[20];

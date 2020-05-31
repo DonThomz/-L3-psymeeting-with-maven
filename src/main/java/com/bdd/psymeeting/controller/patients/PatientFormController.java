@@ -47,7 +47,7 @@ public class PatientFormController implements Initializable, InitController {
 
     private ArrayList<Job> jobs;
 
-    Service<Boolean> addingPatientService = new Service<>() {
+    final Service<Boolean> addingPatientService = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
             return new Task<>() {

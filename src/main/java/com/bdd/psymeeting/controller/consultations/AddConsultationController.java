@@ -67,7 +67,7 @@ public class AddConsultationController implements Initializable, InitController 
     // --------------------
     //   Services
     // --------------------
-    Service<Map<Timestamp, Boolean>> loadTimeSlots = new Service<>() {
+    final Service<Map<Timestamp, Boolean>> loadTimeSlots = new Service<>() {
         @Override
         protected Task<Map<Timestamp, Boolean>> createTask() {
             return new Task<>() {
@@ -79,7 +79,7 @@ public class AddConsultationController implements Initializable, InitController 
         }
     };
 
-    Service<ArrayList<Patient>> loadPrePatients = new Service<>() {
+    final Service<ArrayList<Patient>> loadPrePatients = new Service<>() {
         @Override
         protected Task<ArrayList<Patient>> createTask() {
             return new Task<>() {
@@ -97,7 +97,7 @@ public class AddConsultationController implements Initializable, InitController 
     private ArrayList<Patient> preLoadPatients;
     private ArrayList<Patient> patients;
     private ArrayList<User> users;
-    Service<Boolean> addPatient = new Service<>() {
+    final Service<Boolean> addPatient = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
             return new Task<>() {
@@ -109,7 +109,7 @@ public class AddConsultationController implements Initializable, InitController 
         }
     };
     private boolean confirmation;
-    Service<Boolean> updateNewConsultation = new Service<>() {
+    final Service<Boolean> updateNewConsultation = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
             return new Task<>() {
