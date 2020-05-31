@@ -162,8 +162,8 @@ public class Patient {
                             preparedStmt.setInt(1, tmpLastPatientID);
                         }*/
                         preparedStatement.setInt(1, p.getPatientId());
-                        preparedStatement.setString(2, p.getName().toUpperCase());
-                        preparedStatement.setString(3, p.getLastName().toUpperCase());
+                        preparedStatement.setString(2, p.getName());
+                        preparedStatement.setString(3, p.getLastName());
                         // execute the preparedStatement
                         preparedStatement.executeUpdate();
                     }
@@ -291,8 +291,7 @@ public class Patient {
                     "       p.LAST_NAME\n" +
                     "from USER_APP u\n" +
                     "join PATIENT P on u.PATIENT_ID = P.PATIENT_ID\n" +
-                    "where u.EMAIL = ?");
-            preparedStatement.setString(1, email);
+                    "where u.EMAIL = '" + email + "'");
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 patient = new Patient(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), false);
@@ -502,6 +501,6 @@ public class Patient {
 
     @Override
     public String toString() {
-        return this.getName() + " " + this.getLastName() + (this.user.getEmail() != null ? " : " + this.user.getEmail() : "");
+        return this.getName() + " " + this.getLastName() + (this.user != null ? " : " + this.user.getEmail() : "");
     }
 }

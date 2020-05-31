@@ -196,6 +196,7 @@ public class AddConsultationController implements Initializable, InitController 
         });
 
         addPatient.setOnSucceeded(event -> {
+            if (warring != null ) form_box.getChildren().remove(warring);
             System.out.println("Task adding patient succeeded ! ");
             if (addPatient.getValue()) addPatientSucceeded();
             else {
@@ -355,9 +356,8 @@ public class AddConsultationController implements Initializable, InitController 
 
     public boolean addPatientTask() {
         // field not empty
-        if (validField()) {
-            return addPatient2ArrayList(); // create and add patient to ArrayList patients
-        } else validateTextFieldAction();
+        if (validField()) return addPatient2ArrayList(); // create and add patient to ArrayList patients
+        else validateTextFieldAction();
         return false;
     }
 
@@ -380,7 +380,7 @@ public class AddConsultationController implements Initializable, InitController 
             try {
                 Patient tmp_patient = Patient.getPatientByEmail(email_field.getText());
                 if (tmp_patient != null) {
-                    if (tmp_patient.getName().equals(name_field.getText().toUpperCase()) && tmp_patient.getLastName().equals(last_name_field.getText().toUpperCase())) {
+                    if (tmp_patient.getName().toUpperCase().equals(name_field.getText().toUpperCase()) && tmp_patient.getLastName().toUpperCase().equals(last_name_field.getText().toUpperCase())) {
                         patients.add(tmp_patient);
                         return true;
                     }
@@ -423,7 +423,6 @@ public class AddConsultationController implements Initializable, InitController 
     private void attachPatients() { // attach patient to the right side
         JFXButton patient_save = new JFXButton();
         patient_save.getStyleClass().add("patient_cell");
-
 
         String text = "Patient"
                 + "\n " + patients.get(patients.size() - 1).getName()
