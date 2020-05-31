@@ -58,3 +58,4 @@ insert into jobs (jobs_id, job_name)
 values (29, 'Senior Financial Analyst');
 insert into jobs (jobs_id, job_name)
 values (30, 'Paralegal');
+commit;

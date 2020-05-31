@@ -31,10 +31,11 @@ values (28, 9, '2006-05-13');
 insert into patientjob (jobs_id, patient_id, job_date)
 values (12, 1, '2009-02-05');
 insert into patientjob (jobs_id, patient_id, job_date)
-values (9, 6, '2010-06-20');
+values (9, 7, '2010-06-20');
 insert into patientjob (jobs_id, patient_id, job_date)
 values (16, 10, '2004-12-21');
 insert into patientjob (jobs_id, patient_id, job_date)
 values (8, 10, '1995-02-11');
 insert into patientjob (jobs_id, patient_id, job_date)
 values (4, 5, '1989-04-19');
+commit;
