@@ -52,9 +52,7 @@ public class PatientsController implements Initializable, InitController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        addPatientButton.setOnAction(event -> {
-            loadAddPatientForm();
-        });
+        addPatientButton.setOnAction(event -> loadAddPatientForm());
 
         profilesButtonsHashMap = new HashMap<>();
         patient_list_box.setSpacing(10);

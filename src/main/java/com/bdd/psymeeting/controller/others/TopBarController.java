@@ -63,9 +63,7 @@ public class TopBarController implements Initializable {
             }
         };
 
-        fullNameTask.setOnFailed(e -> {
-            fullNameTask.getException().printStackTrace();
-        });
+        fullNameTask.setOnFailed(e -> fullNameTask.getException().printStackTrace());
         fullNameTask.setOnSucceeded(e -> {
             // update user_menu field
             user_menu.setText(fullNameTask.getValue());

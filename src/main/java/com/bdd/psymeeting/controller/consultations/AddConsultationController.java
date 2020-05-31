@@ -94,7 +94,7 @@ public class AddConsultationController implements Initializable, InitController 
     private int lastIDUser;
     private RequiredFieldValidator validator_field;
     private boolean warringCheck;
-    private ArrayList<Patient> preLoadPatients;
+    // --Commented out by Inspection (31/05/2020 15:07):private ArrayList<Patient> preLoadPatients;
     private ArrayList<Patient> patients;
     private ArrayList<User> users;
     final Service<Boolean> addPatient = new Service<>() {
@@ -213,9 +213,7 @@ public class AddConsultationController implements Initializable, InitController 
 
         addPatient.setOnFailed(event -> System.out.println("Task adding patient failed !"));
 
-        loadPrePatients.setOnSucceeded(event -> {
-            preloadPatientsComboBox.setItems(FXCollections.observableArrayList(loadPrePatients.getValue()));
-        });
+        loadPrePatients.setOnSucceeded(event -> preloadPatientsComboBox.setItems(FXCollections.observableArrayList(loadPrePatients.getValue())));
 
 
     }

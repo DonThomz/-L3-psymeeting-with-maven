@@ -247,12 +247,10 @@ public class ConsultationHistoric {
         // get Patients Info
         StringBuilder patientsInfo = new StringBuilder();
 
-        consultation.getPatients().forEach((id, patient_info) -> {
-            patientsInfo.append("| ")
-                    .append(patient_info.get(0)).append(" ")
-                    .append(patient_info.get(1)).append(" ")
-                    .append(patient_info.get(4)).append("\n");
-        });
+        consultation.getPatients().forEach((id, patient_info) -> patientsInfo.append("| ")
+                .append(patient_info.get(0)).append(" ")
+                .append(patient_info.get(1)).append(" ")
+                .append(patient_info.get(4)).append("\n"));
         if (consultation.isInRelation()) patientsInfo.append("Les patients sont venues en couple");
 
         // get Feedback Info
@@ -318,9 +316,7 @@ public class ConsultationHistoric {
 
     protected HBox commentBox(Consultation consultation) {
 
-        HBox commentBox = new HBox();
-
-        return commentBox;
+        return new HBox();
 
     }
 
