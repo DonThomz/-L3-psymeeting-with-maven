@@ -33,6 +33,22 @@ java -jar L3-PsyMeeting.jar
 4. lancer les tasks : 	
 
    ```
-   javafx:run
    javafx:compile
+   javafx:run
    ```
+   
+Sur certains systèmes, il peut être nécessaire de préciser 
+au plugin javafx-maven-plugin l'emplacement de Java 11.
+
+Il suffit de rajouter dans balise <executable> dans le pom.xml :
+
+Autour de la ligne 60, rajouter cette balise dans la balise <configuration> du plugin.
+```
+<plugin>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-maven-plugin</artifactId>
+    <version>0.0.1</version>
+    <configuration>
+        <mainClass>com.bdd.psymeeting.App</mainClass>
+        <executable>C:/Program Files/Java/jdk-11.0.7/bin/java.exe</executable>
+```
