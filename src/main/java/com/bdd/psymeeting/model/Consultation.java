@@ -351,7 +351,6 @@ public class Consultation extends RecursiveTreeObject<Consultation> {
 
             String[] dates = App.getDatesOfWeek(indexWeek);
             ArrayList<Consultation> consultations = new ArrayList<>();
-            System.out.println(dates[1]);
             String query = "select CONSULTATION_ID\n" +
                     "from CONSULTATION\n" +
                     "where CONSULTATION_DATE between TO_DATE('" + dates[0] + "', 'yyyy-mm-dd HH24:mi:ss') "
@@ -363,7 +362,6 @@ public class Consultation extends RecursiveTreeObject<Consultation> {
             while (result.next()) {
                 consultations.add(new Consultation(result.getInt(1)));
             }
-            System.out.println(consultations.size());
             return consultations;
 
         } catch (SQLException ex) {
@@ -464,7 +462,6 @@ public class Consultation extends RecursiveTreeObject<Consultation> {
             try {
                 PreparedStatement preparedStatement;
                 String query;
-                System.out.println(consultation.getConsultationID());
                 // Step 1 remove row in carryOut
                 query = "delete from CONSULTATION_CARRYOUT where CONSULTATION_ID = ?";
                 preparedStatement = connection.prepareStatement(query);
@@ -472,10 +469,17 @@ public class Consultation extends RecursiveTreeObject<Consultation> {
                 preparedStatement.executeUpdate();
 
                 // Step 2 remove feedback
-                query = "delete from FEEDBACK where CONSULTATION_ID = ?";
+                query = "delete from commentary where feedback_id = ?; " +
+                        "delete from keyword where feedback_id = ?; " +
+                        "delete from posture where feedback_id = ?; " +
+                        "delete from FEEDBACK where feedback_id = ?; ";
                 preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setInt(1, consultation.getConsultationID());
+                preparedStatement.setInt(1, consultation.getFeedback().getFeedbackID());
+                preparedStatement.setInt(2, consultation.getFeedback().getFeedbackID());
+                preparedStatement.setInt(3, consultation.getFeedback().getFeedbackID());
+                preparedStatement.setInt(4, consultation.getFeedback().getFeedbackID());
                 preparedStatement.executeUpdate();
+
 
                 // Step 3 remove consultation
                 query = "delete from CONSULTATION where CONSULTATION_ID = ?";
