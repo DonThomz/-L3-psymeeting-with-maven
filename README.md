@@ -1,57 +1,52 @@
-# L3_PsyMeetingMaven
-Projet Base de Données L3 2019-2020 
+# L3 - PsyMeeting Project
 
-### Equipe
+Projet Base de Données L3 2019-2020
+
+## Équipe
 
 - **Thomas Guillaume**
 - **Gabriel Dugny**
 - **Yorane Doare**
 
-### Frameworks
+## Frameworks
 
 - JDK 11
 - JavaFX 11
 - Maven 3
-- BDD : PostgreSQL, free hosting : ElephantSQL https://www.elephantsql.com/
+- BDD : PostgreSQL, avec un hébergement gratuit [ElephantSQL](https://www.elephantsql.com/)
 
-### Executable
+## Exécuter le projet
 
-Prérequis : avoir Java >= 11 comme Java par défault sur le système
+Prérequis : avoir Java >= 11 comme Java par défaut sur le système
 
-Dans le dossier shade lancer la commande :
+Pour lancer le programme,
+Dans le dossier `shade`, lancer le fichier .jar avec la commande `java -jar L3-PsyMeeting.jar`
 
-```
-java -jar L3-PsyMeeting.jar
-```
+Identifiants de connexion :
 
-Identifiant pour se connecter :
+- Nom utilisateur : admin
+- Mot de passe : adminpwd
 
-nom utilisateur : admin
- 
-mot de passe : adminpwd
+## Build le projet
 
-### Build le projet
+1. Ouvrir le projet depuis votre IDE (nous avons utilisé Intellij 2020.1)
+2. Spécifier le JDK à utiliser (>= JDK 11)
+3. (Si besoin, faire charger les plugins et librairies Maven depuis le ***pom.xml***)
+4. Lancer les tâches Maven suivantes :
 
-1. Ouvrir le projet depuis votre IDE ( nous avons utilisé Intellij ) 
-
-2. Spéficier le JDK à utiliser ( >= java 11 )
-
-3. (si besoin faire charger le ***pom.xml***)
-
-4. lancer les tasks : 	
-
-   ```
+   ```shell
    javafx:compile
    javafx:run
    ```
-   
-Sur certains systèmes, il peut être nécessaire de préciser 
-au plugin javafx-maven-plugin l'emplacement de Java 11.
 
-Il suffit de rajouter dans balise <executable> dans le pom.xml :
+Sur certains systèmes, il peut être nécessaire de préciser
+au plugin javafx-maven-plugin l'emplacement de Java 11, grâce au fichier de configuration pom.xml
 
-Autour de la ligne 60, rajouter cette balise dans la balise <configuration> du plugin.
-```
+Il suffit de rajouter la balise `<executable>` contenant l'emplacement de votre JDK 11.
+Autour de la ligne 60, rajouter cette balise dans la balise `<configuration>` du plugin comme
+le montre l'exemple ci-dessous.
+
+```xml
 <plugin>
     <groupId>org.openjfx</groupId>
     <artifactId>javafx-maven-plugin</artifactId>
