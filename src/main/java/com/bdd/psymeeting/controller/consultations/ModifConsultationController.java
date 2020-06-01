@@ -35,23 +35,17 @@ public class ModifConsultationController implements Initializable {
 
         // setup commentary
         StringBuilder commentary = new StringBuilder();
-        ConsultationHistoric.consultationModified.getFeedback().getCommentary().forEach(line -> {
-            commentary.append(line).append("\n");
-        });
+        ConsultationHistoric.consultationModified.getFeedback().getCommentary().forEach(line -> commentary.append(line).append("\n"));
         commentaryArea.setText(commentary.toString());
 
 
         StringBuilder posture = new StringBuilder();
-        ConsultationHistoric.consultationModified.getFeedback().getPosture().forEach(line -> {
-            posture.append(line).append("\n");
-        });
+        ConsultationHistoric.consultationModified.getFeedback().getPosture().forEach(line -> posture.append(line).append("\n"));
         postureArea.setText(posture.toString());
         postureAreaStatic = postureArea.getText();
 
         StringBuilder keyword = new StringBuilder();
-        ConsultationHistoric.consultationModified.getFeedback().getKeyword().forEach(line -> {
-            keyword.append(line).append("\n");
-        });
+        ConsultationHistoric.consultationModified.getFeedback().getKeyword().forEach(line -> keyword.append(line).append("\n"));
         keywordArea.setText(keyword.toString());
         keywordAreaStatic = keywordArea.getText();
 

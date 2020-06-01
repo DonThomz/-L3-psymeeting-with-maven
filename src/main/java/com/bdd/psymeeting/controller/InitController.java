@@ -6,8 +6,8 @@ package com.bdd.psymeeting.controller;
 
 public interface InitController {
 
-    public void initServices();
+    void initServices();
 
-    public void initListeners();
+    void initListeners();
 
 }

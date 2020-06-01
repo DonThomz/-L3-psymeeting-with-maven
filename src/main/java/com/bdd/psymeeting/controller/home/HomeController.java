@@ -36,10 +36,10 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     public Label weekLabel;
     public GridPane scheduleGrid;
     private int indexWeek;
-    Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<ArrayList<Consultation>>() {
+    final Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<>() {
         @Override
         protected Task<ArrayList<Consultation>> createTask() {
-            return new Task<ArrayList<Consultation>>() {
+            return new Task<>() {
                 @Override
                 protected ArrayList<Consultation> call() {
                     return Consultation.getConsultationWeek(indexWeek);
@@ -210,7 +210,7 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     }
 
     private static class TimeSlots {
-        String[] timeSlots;
+        final String[] timeSlots;
 
         private TimeSlots() {
             timeSlots = new String[20];

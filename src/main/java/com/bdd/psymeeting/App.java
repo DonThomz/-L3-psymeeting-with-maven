@@ -208,20 +208,6 @@ public class App extends Application {
     }
 
     /**
-     * Return monitor index
-     */
-    public static int getScreenMonitorIndex() {
-        int screen_index = 0;
-        for (int i = 0; i < Screen.getScreens().size(); i++) {
-            if ((window.getX() + window.getWidth() / 2) > Screen.getScreens().get(i).getVisualBounds().getMinX())
-                screen_index = i;
-        }
-        return screen_index;
-
-
-    }
-
-    /**
      * Reset HashMap
      */
     public static void resetHashMap() {
@@ -238,14 +224,16 @@ public class App extends Application {
         return cal;
     }
 
-    /**
-     * Convert Date to Calendar
-     */
-    public static Calendar Date2Calendar(Date d) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(d);
-        return cal;
-    }
+// --Commented out by Inspection START (31/05/2020 15:07):
+//    /**
+//     * Convert Date to Calendar
+//     */
+//    public static Calendar Date2Calendar(Date d) {
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(d);
+//        return cal;
+//    }
+// --Commented out by Inspection STOP (31/05/2020 15:07)
 
     /**
      * Convert LocalDate to format string "yyyy-MM-dd HH:mm:ss"

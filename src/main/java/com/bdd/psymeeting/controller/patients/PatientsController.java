@@ -28,10 +28,10 @@ public class PatientsController implements Initializable, InitController {
     // --------------------
     //  Services
     // --------------------
-    final Service<ArrayList<Patient>> loadPatients = new Service<ArrayList<Patient>>() {
+    final Service<ArrayList<Patient>> loadPatients = new Service<>() {
         @Override
         protected Task<ArrayList<Patient>> createTask() {
-            return new Task<ArrayList<Patient>>() {
+            return new Task<>() {
                 @Override
                 protected ArrayList<Patient> call() throws Exception {
                     return Patient.getPatientsProfiles(); // init patients
@@ -52,9 +52,7 @@ public class PatientsController implements Initializable, InitController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        addPatientButton.setOnAction(event -> {
-            loadAddPatientForm();
-        });
+        addPatientButton.setOnAction(event -> loadAddPatientForm());
 
         profilesButtonsHashMap = new HashMap<>();
         patient_list_box.setSpacing(10);

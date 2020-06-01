@@ -16,8 +16,8 @@ public class Patient {
     //   Attributes
     // --------------------
 
-    protected static int KID_AGE_LIMIT = 12;
-    protected static int TEEN_AGE_LIMIT = 18;
+    protected static final int KID_AGE_LIMIT = 12;
+    protected static final int TEEN_AGE_LIMIT = 18;
     private int patientId;
     private String name;
     private String lastName;
@@ -310,22 +310,15 @@ public class Patient {
     public static ArrayList<Patient> getPatientsProfiles() throws SQLException {
 
         ArrayList<Patient> list_patients = new ArrayList<>();
-        Statement statement = null;
-        ResultSet resultSet = null;
 
         // adding patients to list_patients
-        try (Connection connection = App.database.getConnection()) {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("select patient_id from PATIENT");
+        try (Connection connection = App.database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery("select patient_id from PATIENT")) {
             while (resultSet.next()) {
                 list_patients.add(new Patient(resultSet.getInt(1)));
             }
         } catch (SQLException ex) {
             System.err.println("Error get all patients profiles");
             ex.printStackTrace();
-        } finally {
-            if (statement != null) statement.close();
-            if (resultSet != null) resultSet.close();
         }
         return list_patients;
     }
@@ -333,15 +326,12 @@ public class Patient {
     public static ArrayList<Patient> getSimplyPatientsProfiles() throws SQLException {
 
         ArrayList<Patient> list_patients = new ArrayList<>();
-        Statement statement = null;
-        ResultSet resultSet = null;
 
         // adding patients to list_patients
-        try (Connection connection = App.database.getConnection()) {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("select PATIENT.PATIENT_ID, NAME, LAST_NAME, EMAIL from PATIENT join USER_APP UA on PATIENT.PATIENT_ID = UA.PATIENT_ID");
+        try (Connection connection = App.database.getConnection(); Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery("select PATIENT.PATIENT_ID, NAME, LAST_NAME, EMAIL from PATIENT join USER_APP UA on PATIENT.PATIENT_ID = UA.PATIENT_ID")) {
             while (resultSet.next()) {
-                list_patients.add(new Patient(resultSet.getInt(1),
+                list_patients.add(new Patient(
+                        resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4)));
@@ -350,9 +340,6 @@ public class Patient {
         } catch (SQLException ex) {
             System.err.println("Error get all patients profiles");
             ex.printStackTrace();
-        } finally {
-            if (statement != null) statement.close();
-            if (resultSet != null) resultSet.close();
         }
         return list_patients;
     }

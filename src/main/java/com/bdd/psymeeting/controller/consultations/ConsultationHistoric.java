@@ -32,10 +32,10 @@ import java.util.Locale;
 public class ConsultationHistoric {
 
     protected static Consultation consultationModified;
-    protected final Service<Boolean> loadConsultations = new Service<Boolean>() {
+    protected final Service<Boolean> loadConsultations = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
-            return new Task<Boolean>() {
+            return new Task<>() {
                 @Override
                 protected Boolean call() throws Exception {
                     return setupBoxConsultations(); // init consultation
@@ -51,10 +51,10 @@ public class ConsultationHistoric {
     protected Calendar date_today;
     protected ArrayList<Consultation> consultationArrayList;
     protected Consultation consultationToBeRemove;
-    protected final Service<Boolean> removeConsultationService = new Service<Boolean>() {
+    protected final Service<Boolean> removeConsultationService = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
-            return new Task<Boolean>() {
+            return new Task<>() {
                 @Override
                 protected Boolean call() {
                     return removeConsultation(consultationToBeRemove);
@@ -323,9 +323,7 @@ public class ConsultationHistoric {
 
     protected HBox commentBox(Consultation consultation) {
 
-        HBox commentBox = new HBox();
-
-        return commentBox;
+        return new HBox();
 
     }
 
