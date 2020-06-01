@@ -100,8 +100,9 @@ public class TopBarController implements Initializable {
 
         assert current_scene != null;
         // only if the next scene is different
-        if (!current_scene.equals(target_scene))
+        if (!current_scene.equals(target_scene)) {
             App.sceneMapping(current_scene, target_scene);
+        }
     }
 
 

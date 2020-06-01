@@ -80,13 +80,16 @@ public class User {
 
         try (Connection connection = App.database.getConnection()) {
             preparedStatement = connection.prepareStatement("select\n" +
-                    "       u.PATIENT_ID\n" +
-                    "from USER_APP u\n" +
-                    "where u.EMAIL = ? ");
+                                                                    "       u.PATIENT_ID\n" +
+                                                                    "from USER_APP u\n" +
+                                                                    "where u.EMAIL = ? ");
             preparedStatement.setString(1, email);
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) return resultSet.getInt(1);
-            else return 0;
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                return 0;
+            }
         } catch (SQLException throwable) {
             System.err.println("Get patient ID failed, return 0");
             throwable.printStackTrace();
@@ -121,7 +124,9 @@ public class User {
                 preparedStatement.close();
                 resultSet.close();
                 return user;
-            } else return null;
+            } else {
+                return null;
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.err.println("Error get user by patient ID = " + patientID);
@@ -168,7 +173,9 @@ public class User {
                 preparedStatement.close();
                 resultSet.close();
                 return user;
-            } else return null;
+            } else {
+                return null;
+            }
 
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -212,7 +219,9 @@ public class User {
                 }
                 preparedStmt.close();
                 return true;
-            } else return false;
+            } else {
+                return false;
+            }
         } catch (SQLException ex) {
             System.err.println("Error updating table user in database");
             ex.printStackTrace();

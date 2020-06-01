@@ -96,7 +96,9 @@ public class ConsultationController extends ConsultationHistoric implements Init
                 consultationArrayList.add(buildConsultationButton(new Consultation(consultationID)));
                 if (consultationArrayList.get(consultationArrayList.size() - 1) == null) return false; // if error
             }
-        } else return false; // no consultation in DB
+        } else {
+            return false; // no consultation in DB
+        }
 
         // setup comparator
         consultationArrayList.sort(Comparator.comparing(Consultation::getDate));

@@ -140,8 +140,11 @@ public class LoginController implements Initializable, InitController {
 
     public void loginSucceeded() {
         // Success
-        if (save_pwd_checkbox.isSelected()) createSaveFile();
-        else removeSaveFile();
+        if (save_pwd_checkbox.isSelected()) {
+            createSaveFile();
+        } else {
+            removeSaveFile();
+        }
 
         App.connection_active = true;
 
@@ -171,7 +174,9 @@ public class LoginController implements Initializable, InitController {
             File save_pwd = new File("save_pwd.txt");
             if (save_pwd.createNewFile()) {
                 System.out.println("Successfully save_pwd.txt create !");
-            } else System.out.println("save_pwd.txt already exist !");
+            } else {
+                System.out.println("save_pwd.txt already exist !");
+            }
         } catch (IOException e) {
             System.out.println("An error occurred. Creation of save_pwd.txt");
             e.printStackTrace();
@@ -190,8 +195,11 @@ public class LoginController implements Initializable, InitController {
 
     private void removeSaveFile() {
         File tmpFile = new File("save_pwd.txt");
-        if (tmpFile.delete()) System.out.println("Successfully remove save_pwd.txt");
-        else System.out.println("Error remove save_pwd.txt");
+        if (tmpFile.delete()) {
+            System.out.println("Successfully remove save_pwd.txt");
+        } else {
+            System.out.println("Error remove save_pwd.txt");
+        }
     }
 
     private void fillField(boolean exist) {
@@ -203,10 +211,12 @@ public class LoginController implements Initializable, InitController {
                 e.printStackTrace();
             }
             assert scanner != null;
-            if (scanner.hasNextLine())
+            if (scanner.hasNextLine()) {
                 username_field.setText(scanner.next());
-            if (scanner.hasNextLine())
+            }
+            if (scanner.hasNextLine()) {
                 password_field.setText(scanner.next());
+            }
             save_pwd_checkbox.setSelected(true);
         }
     }

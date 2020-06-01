@@ -283,12 +283,12 @@ public class Patient {
     public static Patient getPatientByEmail(String email) {
         Patient patient = null;
         try (Connection connection = App.database.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("select\n" +
-                "       u.PATIENT_ID,\n" +
-                "       p.NAME,\n" +
-                "       p.LAST_NAME\n" +
-                "from USER_APP u\n" +
-                "join PATIENT P on u.PATIENT_ID = P.PATIENT_ID\n" +
-                "where u.EMAIL = '" + email + "'"); ResultSet resultSet = preparedStatement.executeQuery()) {
+                                                                                                                                             "       u.PATIENT_ID,\n" +
+                                                                                                                                             "       p.NAME,\n" +
+                                                                                                                                             "       p.LAST_NAME\n" +
+                                                                                                                                             "from USER_APP u\n" +
+                                                                                                                                             "join PATIENT P on u.PATIENT_ID = P.PATIENT_ID\n" +
+                                                                                                                                             "where u.EMAIL = '" + email + "'"); ResultSet resultSet = preparedStatement.executeQuery()) {
             if (resultSet.next()) {
                 patient = new Patient(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), false);
                 return patient;

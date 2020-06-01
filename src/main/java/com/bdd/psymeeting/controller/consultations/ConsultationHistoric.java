@@ -75,7 +75,9 @@ public class ConsultationHistoric {
             if (removeConsultationService.getValue()) {
                 System.out.print("Task Remove consultation succeeded !");
                 refresh();
-            } else System.out.print("Task succeeded but remove consultation from database failed !");
+            } else {
+                System.out.print("Task succeeded but remove consultation from database failed !");
+            }
             removeConsultationService.reset();
         });
 
@@ -138,10 +140,11 @@ public class ConsultationHistoric {
         VBox box = new VBox();
 
         assert consultation.getDate() != null;
-        @SuppressWarnings("SpellCheckingInspection") String timeStamp = new SimpleDateFormat("EEEE dd MMMM, yyyy à HH:mm",
+        @SuppressWarnings("SpellCheckingInspection") String timeStamp = new SimpleDateFormat(
+                "EEEE dd MMMM, yyyy à HH:mm",
                 Locale.FRANCE).format(consultation.getDate().getTime());
         Label title = new Label("Consultation : "
-                + "\n\t" + timeStamp);
+                                        + "\n\t" + timeStamp);
 
         box.getChildren().add(title);
 
@@ -183,8 +186,9 @@ public class ConsultationHistoric {
         // check if consultation is passed
         LocalDate localDate = LocalDateTime.ofInstant(consultation.getDate().toInstant(), consultation.getDate().getTimeZone().toZoneId()).toLocalDate();
         JFXButton remove = new JFXButton("Supprimer");
-        if (LocalDate.now().compareTo(localDate) <= 0)
+        if (LocalDate.now().compareTo(localDate) <= 0) {
             content.getActions().add(remove);
+        }
 
         done.setOnAction(event -> dialog.close());
 
@@ -272,8 +276,9 @@ public class ConsultationHistoric {
                 .append(patient_info.get(0)).append(" ")
                 .append(patient_info.get(1)).append(" ")
                 .append(patient_info.get(4)).append("\n"));
-        if (consultation.isInRelation() && consultation.getPatients().size() > 1)
+        if (consultation.isInRelation() && consultation.getPatients().size() > 1) {
             patientsInfo.append("Les patients sont venues en couple");
+        }
 
         // get Feedback Info
         StringBuilder feedbackInfo = new StringBuilder();
@@ -282,16 +287,19 @@ public class ConsultationHistoric {
         feedbackInfo.append("Prix : ").append(consultation.getPrice()).append(" €, payé avec : ").append(consultation.getPayMode());
         // info feedback commentary, key words, postures, indicator
         feedbackInfo.append("\n\nRetour de séance").append("\n\n\tCommentaire : \n").append(consultation.getFeedback().getCommentary());
-        if (consultation.getFeedback().getKeyword() != null)
+        if (consultation.getFeedback().getKeyword() != null) {
             feedbackInfo.append("\n\n\tMots clés :").append(consultation.getFeedback().getKeyword());
-        if (consultation.getFeedback().getPosture() != null)
+        }
+        if (consultation.getFeedback().getPosture() != null) {
             feedbackInfo.append("\n\n\tPosture :").append(consultation.getFeedback().getPosture());
-        if (consultation.getFeedback().getIndicator() != 0)
+        }
+        if (consultation.getFeedback().getIndicator() != 0) {
             feedbackInfo.append("\n\n\tIndicateur :").append(consultation.getFeedback().getIndicator());
+        }
 
         TextArea textArea = new TextArea("Patients :\n"
-                + patientsInfo + "\n"
-                + feedbackInfo + "\n"
+                                                 + patientsInfo + "\n"
+                                                 + feedbackInfo + "\n"
         );
         textArea.setWrapText(true);
         textArea.setEditable(false);
@@ -299,7 +307,8 @@ public class ConsultationHistoric {
     }
 
     protected Label createTitle(Calendar date) {
-        @SuppressWarnings("SpellCheckingInspection") String format_date = new SimpleDateFormat("EEEE dd MMMM, yyyy à HH:mm",
+        @SuppressWarnings("SpellCheckingInspection") String format_date = new SimpleDateFormat(
+                "EEEE dd MMMM, yyyy à HH:mm",
                 Locale.FRANCE).format(date.getTime());
         return new Label("Consultation du " + format_date);
     }

@@ -106,7 +106,9 @@ public class Feedback {
                 preparedStatement.setInt(1, getLastFeedbackID() + 1);
                 preparedStatement.setInt(2, consultation_id + 1);
                 return true;
-            } else return false;
+            } else {
+                return false;
+            }
 
         } catch (SQLException ex) {
             ex.printStackTrace();

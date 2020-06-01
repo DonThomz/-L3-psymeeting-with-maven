@@ -433,8 +433,9 @@ public class Consultation extends RecursiveTreeObject<Consultation> {
             ) {
                 // config parameters
                 // patient already exist
-                if (p.getPatientId() <= lastPatientID) preparedStmt.setInt(1, p.getPatientId());
-                else {
+                if (p.getPatientId() <= lastPatientID) {
+                    preparedStmt.setInt(1, p.getPatientId());
+                } else {
                     tmpLastPatientID++;
                     preparedStmt.setInt(1, tmpLastPatientID);
                 }
@@ -508,9 +509,13 @@ public class Consultation extends RecursiveTreeObject<Consultation> {
         Calendar birthDay = Calendar.getInstance();
         birthDay.setTime(dateBirthDay);
         int years = this.getDate().get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
-        if (years <= Patient.KID_AGE_LIMIT) return "Enfant";
-        else if (years <= Patient.TEEN_AGE_LIMIT) return "Adolescent";
-        else return "Adulte";
+        if (years <= Patient.KID_AGE_LIMIT) {
+            return "Enfant";
+        } else if (years <= Patient.TEEN_AGE_LIMIT) {
+            return "Adolescent";
+        } else {
+            return "Adulte";
+        }
     }
 
     @Override

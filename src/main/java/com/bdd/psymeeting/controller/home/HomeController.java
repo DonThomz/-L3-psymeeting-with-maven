@@ -218,8 +218,9 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     private int getRowTimeSlotIndex(int hours, int minutes) {
         TimeSlots timeSlots = new TimeSlots();
         for (int i = 0; i < timeSlots.getTimeSlots().length; i++) {
-            if (timeSlots.getTimeSlots()[i].equals(hours + ":" + (minutes == 0 ? "00" : minutes)))
+            if (timeSlots.getTimeSlots()[i].equals(hours + ":" + (minutes == 0 ? "00" : minutes))) {
                 return i;
+            }
         }
         return 0;
     }
@@ -227,8 +228,11 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     public void pagination(ActionEvent actionEvent) {
         previousPagination.setDisable(true);
         nextPagination.setDisable(true);
-        if (actionEvent.getSource().equals(previousPagination)) indexWeek--;
-        else indexWeek++;
+        if (actionEvent.getSource().equals(previousPagination)) {
+            indexWeek--;
+        } else {
+            indexWeek++;
+        }
         // refresh home page
         refresh();
 

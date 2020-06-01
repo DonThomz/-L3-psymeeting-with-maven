@@ -120,7 +120,9 @@ public class PatientFormController implements Initializable, InitController {
                 if (addingPatientService.getState() == Task.State.READY) {
                     addingPatientService.start();
                 }
-            } else validatePriorityField();
+            } else {
+                validatePriorityField();
+            }
         });
 
         jobs_button.setOnAction(event -> loadJobForm());
@@ -169,7 +171,9 @@ public class PatientFormController implements Initializable, InitController {
                 jobs.add(new Job(jobNameField.getText().toUpperCase(), Date.valueOf(jobDateField.getValue())));
                 jobs_list_field.getItems().add(jobs.get(jobs.size() - 1).getJobName());
                 dialog.close();
-            } else validatePriorityJobField(jobNameField, jobDateField);
+            } else {
+                validatePriorityJobField(jobNameField, jobDateField);
+            }
 
         });
 
@@ -192,21 +196,27 @@ public class PatientFormController implements Initializable, InitController {
     }
 
     private void validatePriorityJobField(JFXTextField jobNameField, JFXDatePicker jobDateField) { // add require validation if priority fields are empty
-        if (jobNameField.getText().isEmpty())
+        if (jobNameField.getText().isEmpty()) {
             jobNameField.validate();
-        if (jobDateField.getValue() == null)
+        }
+        if (jobDateField.getValue() == null) {
             jobDateField.validate();
+        }
     }
 
     private void validatePriorityField() { // add require validation if priority fields are empty
-        if (name_field.getText().isEmpty())
+        if (name_field.getText().isEmpty()) {
             name_field.validate();
-        if (last_name_field.getText().isEmpty())
+        }
+        if (last_name_field.getText().isEmpty()) {
             last_name_field.validate();
-        if (email_field.getText().isEmpty())
+        }
+        if (email_field.getText().isEmpty()) {
             email_field.validate();
-        if (birthday_field.getValue() == null)
+        }
+        if (birthday_field.getValue() == null) {
             birthday_field.validate();
+        }
     }
 
     private void addListenerValidationField(JFXTextField field) {
@@ -234,8 +244,9 @@ public class PatientFormController implements Initializable, InitController {
      * @return true if succeeded !
      */
     private boolean submitPatient() throws SQLException {
-        if (User.userExist(email_field.getText())) return false;
-        else {
+        if (User.userExist(email_field.getText())) {
+            return false;
+        } else {
             /*
              *  Create patient, user and jobs => add to Database
              */
@@ -243,7 +254,8 @@ public class PatientFormController implements Initializable, InitController {
             int lastUserId = User.getLastUserId();
 
             if (lastPatientID >= 0 && lastUserId >= 0) {
-                Patient newPatient = new Patient(lastPatientID + 1,
+                Patient newPatient = new Patient(
+                        lastPatientID + 1,
                         name_field.getText().toUpperCase(),
                         last_name_field.getText().toUpperCase(),
                         Date.valueOf(birthday_field.getValue()),

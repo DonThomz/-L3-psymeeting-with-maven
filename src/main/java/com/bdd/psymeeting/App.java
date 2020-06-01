@@ -95,8 +95,9 @@ public class App extends Application {
         launch(args);
 
         // Close database if exit program
-        if (connection_active)
+        if (connection_active) {
             database.closeDatabase();
+        }
     }
 
     // Mapping between scenes
@@ -110,7 +111,9 @@ public class App extends Application {
                 Object rootMain = FXMLLoader.load(App.class.getResource("views/others/main.fxml"));
                 main_scene = new Scene((Parent) rootMain);
                 window.setScene(main_scene);
-            } else MainController.mainContentStatic.getChildren().clear();
+            } else {
+                MainController.mainContentStatic.getChildren().clear();
+            }
             switchScene(target_scene);
             // Update HashMap
             scenes.put(origin_scene, false);
@@ -185,10 +188,10 @@ public class App extends Application {
      * Get current scene
      */
     public static String getCurrentScene() {
-        for (Map.Entry<String, Boolean> hm : scenes.entrySet()
-        ) {
-            if (hm.getValue().equals(true))
+        for (Map.Entry<String, Boolean> hm : scenes.entrySet()) {
+            if (hm.getValue().equals(true)) {
                 return hm.getKey();
+            }
         }
         return null;
     }

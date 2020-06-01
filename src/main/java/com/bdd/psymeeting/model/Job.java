@@ -97,8 +97,11 @@ public class Job {
             Statement stmt = connection.createStatement();
 
             ResultSet resultSet = stmt.executeQuery("select max(JOBS_ID) from JOBS");
-            if (resultSet.next()) return resultSet.getInt(1);
-            else return -1;
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                return -1;
+            }
 
         } catch (SQLException throwable) {
             throwable.printStackTrace();
@@ -143,7 +146,9 @@ public class Job {
                         int jobID = job.getJobDatabaseID(); // get the correct job ID
                         if (jobID != -1) {
                             job.setJobId(jobID);
-                        } else return false; // error
+                        } else {
+                            return false; // error
+                        }
                     }
                     // update patient-job
                     preparedStatement1.setInt(1, job.getJobId());

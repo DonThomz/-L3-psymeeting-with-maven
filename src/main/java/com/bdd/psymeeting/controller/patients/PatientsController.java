@@ -58,8 +58,11 @@ public class PatientsController implements Initializable, InitController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println(App.current_resolution[1]);
-        if (App.current_resolution[1] - 400 > 0) gap.setPrefHeight(App.current_resolution[1] - 400);
-        else gap.setPrefHeight(0);
+        if (App.current_resolution[1] - 400 > 0) {
+            gap.setPrefHeight(App.current_resolution[1] - 400);
+        } else {
+            gap.setPrefHeight(0);
+        }
 
 
         addPatientButton.setOnAction(event -> loadAddPatientForm());

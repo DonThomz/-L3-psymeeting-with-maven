@@ -184,7 +184,9 @@ public class PatientDetailsController extends ConsultationHistoric implements In
             }
             if (jobs.size() > 0) patient.setJobs(jobs);
             if (updateUserDetails.getState() == Task.State.READY) // loading update table in Service
+            {
                 updateUserDetails.start();
+            }
         });
 
         jobs_button.setOnAction(event -> loadJobForm());
@@ -245,7 +247,9 @@ public class PatientDetailsController extends ConsultationHistoric implements In
                 jobs.get(jobs.size() - 1).setPatientID(patient.getPatientId());
                 jobs_list_field.getItems().add(jobs.get(jobs.size() - 1).getJobName());
                 dialog.close();
-            } else validatePriorityJobField(jobNameField, jobDateField);
+            } else {
+                validatePriorityJobField(jobNameField, jobDateField);
+            }
 
         });
 
@@ -261,10 +265,12 @@ public class PatientDetailsController extends ConsultationHistoric implements In
     }
 
     private void validatePriorityJobField(JFXTextField jobNameField, JFXDatePicker jobDateField) { // add require validation if priority fields are empty
-        if (jobNameField.getText().isEmpty())
+        if (jobNameField.getText().isEmpty()) {
             jobNameField.validate();
-        if (jobDateField.getValue() == null)
+        }
+        if (jobDateField.getValue() == null) {
             jobDateField.validate();
+        }
     }
 
     private void addListenerValidationField(JFXTextField field) {

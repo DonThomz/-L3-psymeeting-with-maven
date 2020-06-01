@@ -204,8 +204,9 @@ public class AddConsultationController implements Initializable, InitController 
         addPatient.setOnSucceeded(event -> {
             if (warring != null) form_box.getChildren().remove(warring);
             System.out.println("Task adding patient succeeded ! ");
-            if (addPatient.getValue()) addPatientSucceeded();
-            else {
+            if (addPatient.getValue()) {
+                addPatientSucceeded();
+            } else {
                 // error user email already exist in database
                 // ex : ubabst1@zdnet.com
                 warring = new Label("L'email renseigné est déjà pris");
@@ -265,7 +266,9 @@ public class AddConsultationController implements Initializable, InitController 
         if (date_field.getValue() != null && hour_field.getValue() != null && (!patients.isEmpty() || validField())) {
             if (validField()) {
                 if (addPatient.getState() == Task.State.READY) // adding patient
+                {
                     addPatient.start();
+                }
             }
             // open confirmation dialog
             confirmationDialog();
@@ -290,15 +293,17 @@ public class AddConsultationController implements Initializable, InitController 
             ) {
                 info.append("\n- ").append(p.getName()).append(" ").append(p.getLastName());
             }
-            if (validField())
+            if (validField()) {
                 info.append("\n- ").append(name_field.getText()).append(" ").append(last_name_field.getText());
-        } else
+            }
+        } else {
             info.append("\n- ").append(name_field.getText()).append(" ").append(last_name_field.getText());
+        }
 
         content.setBody(new Text("Date de consultation : " + date_field.getValue()
-                + " à " + hour_field.getValue() + "\n"
-                + "Les patients sont : \n"
-                + info));
+                                         + " à " + hour_field.getValue() + "\n"
+                                         + "Les patients sont : \n"
+                                         + info));
 
         JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
         JFXButton submit = new JFXButton("Confirmer & Envoyer");
@@ -307,7 +312,9 @@ public class AddConsultationController implements Initializable, InitController 
         submit.setOnAction(event -> {
             confirmation = true;
             if (updateNewConsultation.getState() == Task.State.READY) // loading update table in Service
+            {
                 updateNewConsultation.start();
+            }
             dialog.close();
         });
 
@@ -337,10 +344,16 @@ public class AddConsultationController implements Initializable, InitController 
                             && Feedback.insertFeedback(consultationID)) {
                         connection.commit();
                         return true;
-                    } else return false;
-                } else return false;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
 
-            } else return false;
+            } else {
+                return false;
+            }
         } catch (SQLException ex) {
             System.out.println("Error creation consultation");
             ex.printStackTrace();
@@ -360,8 +373,11 @@ public class AddConsultationController implements Initializable, InitController 
 
     public boolean addPatientTask() {
         // field not empty
-        if (validField()) return addPatient2ArrayList(); // create and add patient to ArrayList patients
-        else validateTextFieldAction();
+        if (validField()) {
+            return addPatient2ArrayList(); // create and add patient to ArrayList patients
+        } else {
+            validateTextFieldAction();
+        }
         return false;
     }
 
@@ -406,7 +422,9 @@ public class AddConsultationController implements Initializable, InitController 
                 lastIDUser++;
 
                 return true;
-            } else return false;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -484,19 +502,24 @@ public class AddConsultationController implements Initializable, InitController 
 
     private void validateTextFieldAction() { // add require validation if fields are empty
 
-        if (name_field.getText().isEmpty())
+        if (name_field.getText().isEmpty()) {
             name_field.validate();
-        if (last_name_field.getText().isEmpty())
+        }
+        if (last_name_field.getText().isEmpty()) {
             last_name_field.validate();
-        if (email_field.getText().isEmpty())
+        }
+        if (email_field.getText().isEmpty()) {
             email_field.validate();
+        }
     }
 
     private void validateDateFieldAction() { // add require validation if date and hour fields are empty
-        if (date_field.getValue() == null)
+        if (date_field.getValue() == null) {
             date_field.validate();
-        if (hour_field.getValue() == null)
+        }
+        if (hour_field.getValue() == null) {
             hour_field.validate();
+        }
     }
 
     private void addListenerValidationField(JFXTextField field) {
@@ -527,8 +550,9 @@ public class AddConsultationController implements Initializable, InitController 
         field.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (date_field.getValue() != null) {
                 if (date_field.getValue().compareTo(LocalDate.now()) >= 0) {
-                    if (loadTimeSlots.getState() == Task.State.READY)
+                    if (loadTimeSlots.getState() == Task.State.READY) {
                         loadTimeSlots.start();
+                    }
                 }
                 if (newValue) {
                     field.resetValidation();
