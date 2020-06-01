@@ -24,9 +24,11 @@ Dans le dossier shade lancer la commande :
 java -jar L3-PsyMeeting.jar
 ```
 
-Identifiant : 
-user : admin
-password : adminpwd
+Identifiant pour se connecter :
+
+nom utilisateur : admin
+ 
+mot de passe : adminpwd
 
 ### Build le projet
 
