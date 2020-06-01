@@ -8,6 +8,7 @@ import com.bdd.psymeeting.App;
 import com.bdd.psymeeting.controller.InitController;
 import com.bdd.psymeeting.model.Patient;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSpinner;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +26,8 @@ public class PatientsController implements Initializable, InitController {
 
     public static ArrayList<Patient> list_patients;
     public static int current_patient_id;
+    private JFXSpinner spinner;
+
     // --------------------
     //  Services
     // --------------------
@@ -67,10 +70,14 @@ public class PatientsController implements Initializable, InitController {
     public void initServices() {
 
         // execute sql request in another thread
-        if (loadPatients.getState() == Task.State.READY)
+        if (loadPatients.getState() == Task.State.READY) {
+            // load spinner
+            spinnerLoading();
             loadPatients.start();
+        }
 
         loadPatients.setOnSucceeded(event -> {
+            removeSpinner();
             System.out.println("Task succeeded -> loading patients informations\nCreation patients box...");
             setupListPatients(loadPatients.getValue());
         });
@@ -83,6 +90,16 @@ public class PatientsController implements Initializable, InitController {
     @Override
     public void initListeners() {
 
+    }
+
+    public void spinnerLoading() {
+        spinner = new JFXSpinner();
+        spinner.setPrefSize(50, 50);
+        patient_list_box.getChildren().add(spinner);
+    }
+
+    public void removeSpinner() {
+        patient_list_box.getChildren().remove(spinner);
     }
 
     public void setupListPatients(ArrayList<Patient> patientArrayList) {

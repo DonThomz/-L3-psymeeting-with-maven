@@ -10,6 +10,7 @@ import com.bdd.psymeeting.controller.InitController;
 import com.bdd.psymeeting.controller.consultations.ConsultationHistoric;
 import com.bdd.psymeeting.model.Consultation;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -35,8 +36,13 @@ public class HomeController extends ConsultationHistoric implements Initializabl
 
     public Label weekLabel;
     public GridPane scheduleGrid;
+
+    public StackPane stackPane2;
+
+    private ArrayList<AnchorPane> cells;
+    private JFXDialog spinnerDialog;
     private int indexWeek;
-    Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<ArrayList<Consultation>>() {
+    private final Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<ArrayList<Consultation>>() {
         @Override
         protected Task<ArrayList<Consultation>> createTask() {
             return new Task<ArrayList<Consultation>>() {
@@ -53,6 +59,7 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         indexWeek = 0;
+        cells = new ArrayList<>();
 
         initServices();
 
@@ -64,7 +71,15 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     @Override
     public void initServices() {
         loadConsultationsWeek.setOnSucceeded(event -> {
+
             System.out.println("Loading consultations of the week succeeded !");
+            // remove spinner
+            super.removeSpinner(spinnerDialog);
+            spinnerDialog.close();
+
+            // clean previous consultations
+            cleanPreviousConsultations();
+
             fillGridPane(loadConsultationsWeek.getValue());
             previousPagination.setDisable(false);
             nextPagination.setDisable(false);
@@ -77,9 +92,10 @@ public class HomeController extends ConsultationHistoric implements Initializabl
             loadConsultationsWeek.reset();
         });
 
-        if (loadConsultationsWeek.getState() == Task.State.READY)
-            loadConsultationsWeek.start();
+        refresh();
+
     }
+
 
     @Override
     public void initListeners() {
@@ -88,14 +104,24 @@ public class HomeController extends ConsultationHistoric implements Initializabl
 
     @Override
     protected void refresh() {
-        System.out.println(scheduleGrid.getChildren().removeIf(node -> node.getClass().getName().contains("AnchorPane")));
-
         //scheduleGrid.getChildren().clear();
         //buildGripPane();
-        if (loadConsultationsWeek.getState() == Task.State.READY)
+        if (loadConsultationsWeek.getState() == Task.State.READY) {
+            // load spinner
+            spinnerDialog = new JFXDialog();
+            spinnerDialog.setMaxSize(75, 75);
+            spinnerDialog.show(stackPane2);
+            super.spinnerLoading(spinnerDialog);
             loadConsultationsWeek.start();
+        }
     }
 
+    private void cleanPreviousConsultations() {
+        cells.forEach(cell -> {
+            scheduleGrid.getChildren().remove(cell);
+        });
+        cells.clear();
+    }
 
     protected void fillGridPane(ArrayList<Consultation> consultations) {
 
@@ -122,6 +148,9 @@ public class HomeController extends ConsultationHistoric implements Initializabl
             AnchorPane.setTopAnchor(consultation, 0.0);
             AnchorPane.setBottomAnchor(consultation, 0.0);
             scheduleGrid.add(cell, day, row);
+
+            // add coordonnes
+            cells.add(cell);
 
             //add event to button
             consultation.setOnAction(event -> loadConsultationInfo(c));

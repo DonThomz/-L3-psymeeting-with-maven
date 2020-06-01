@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import java.net.URL?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.bdd.psymeeting.controller.home.HomeController">
     <stylesheets>
         <URL value="@../stylesheets/home.css"/>
@@ -26,60 +26,65 @@
                     <fx:include source="../others/top_bar.fxml"/>
                 </top>
                 <center>
-                    <AnchorPane BorderPane.alignment="CENTER">
+                    <StackPane fx:id="stackPane2" BorderPane.alignment="CENTER">
                         <children>
-                            <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                  AnchorPane.topAnchor="20.0">
+                            <AnchorPane>
                                 <children>
-                                    <Label fx:id="weekLabel"/>
-                                    <GridPane fx:id="gridColumnNames">
-                                        <effect>
-                                            <DropShadow color="#000000b6"/>
-                                        </effect>
-                                    </GridPane>
-                                    <ScrollPane fx:id="scrollPane" hbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
-                                        <content>
-                                            <GridPane fx:id="scheduleGrid">
+                                    <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                          AnchorPane.topAnchor="20.0">
+                                        <children>
+                                            <Label fx:id="weekLabel"/>
+                                            <GridPane fx:id="gridColumnNames">
                                                 <effect>
                                                     <DropShadow color="#000000b6"/>
                                                 </effect>
                                             </GridPane>
-                                        </content>
-                                    </ScrollPane>
-                                    <HBox alignment="CENTER">
-                                        <children>
-                                            <JFXButton fx:id="previousPagination" buttonType="RAISED"
-                                                       onAction="#pagination" styleClass="paginationButton"
-                                                       text="Précédent">
-                                                <graphic>
-                                                    <FontIcon iconLiteral="far-arrow-alt-circle-left"/>
-                                                </graphic>
-                                                <HBox.margin>
-                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                                                </HBox.margin>
-                                                <padding>
-                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                                                </padding>
-                                            </JFXButton>
-                                            <JFXButton fx:id="nextPagination" buttonType="RAISED" onAction="#pagination"
-                                                       styleClass="paginationButton" text="Suivant">
-                                                <graphic>
-                                                    <FontIcon iconLiteral="far-arrow-alt-circle-right"/>
-                                                </graphic>
-                                                <HBox.margin>
-                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                                                </HBox.margin>
-                                                <padding>
-                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                                                </padding>
-                                            </JFXButton>
+                                            <ScrollPane fx:id="scrollPane" hbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                                                <content>
+                                                    <GridPane fx:id="scheduleGrid">
+                                                        <effect>
+                                                            <DropShadow color="#000000b6"/>
+                                                        </effect>
+                                                    </GridPane>
+                                                </content>
+                                            </ScrollPane>
+                                            <HBox alignment="CENTER">
+                                                <children>
+                                                    <JFXButton fx:id="previousPagination" buttonType="RAISED"
+                                                               onAction="#pagination" styleClass="paginationButton"
+                                                               text="Précédent">
+                                                        <graphic>
+                                                            <FontIcon iconLiteral="far-arrow-alt-circle-left"/>
+                                                        </graphic>
+                                                        <HBox.margin>
+                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                                        </HBox.margin>
+                                                        <padding>
+                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                                        </padding>
+                                                    </JFXButton>
+                                                    <JFXButton fx:id="nextPagination" buttonType="RAISED"
+                                                               onAction="#pagination" styleClass="paginationButton"
+                                                               text="Suivant">
+                                                        <graphic>
+                                                            <FontIcon iconLiteral="far-arrow-alt-circle-right"/>
+                                                        </graphic>
+                                                        <HBox.margin>
+                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                                        </HBox.margin>
+                                                        <padding>
+                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                                        </padding>
+                                                    </JFXButton>
+                                                </children>
+                                            </HBox>
+                                            <Region VBox.vgrow="ALWAYS"/>
                                         </children>
-                                    </HBox>
-                                    <Region VBox.vgrow="ALWAYS"/>
+                                    </VBox>
                                 </children>
-                            </VBox>
+                            </AnchorPane>
                         </children>
-                    </AnchorPane>
+                    </StackPane>
                 </center>
                 <left>
                     <Region prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>

@@ -26,7 +26,6 @@ public class ConsultationController extends ConsultationHistoric implements Init
 
     // Attributes
 
-
     // --------------------
     //   Initialize method
     // --------------------
@@ -54,11 +53,14 @@ public class ConsultationController extends ConsultationHistoric implements Init
     public void initServices() {
         // start loadConsultations service
         if (super.loadConsultations.getState() == Task.State.READY) {
+            // add spinner loading
+            super.spinnerLoading(box_consultations);
             super.loadConsultations.start();
         }
 
         // Setup services
         super.loadConsultations.setOnSucceeded(evt -> {
+            super.removeSpinner(box_consultations);
             System.out.println("Task load consultation succeeded!");
             // run createBoxConsultations
             super.createBoxConsultations("consultation_cell");
