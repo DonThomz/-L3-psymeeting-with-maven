@@ -6,20 +6,14 @@ package com.bdd.psymeeting.controller.consultations;
 
 import com.bdd.psymeeting.App;
 import com.bdd.psymeeting.model.Consultation;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.*;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -63,6 +57,8 @@ public class ConsultationHistoric {
         }
     };
 
+    protected JFXSpinner spinner;
+
     protected ConsultationHistoric() {
         removeConsultationService.setOnSucceeded(event -> {
             if (removeConsultationService.getValue()) {
@@ -90,6 +86,15 @@ public class ConsultationHistoric {
         return Consultation.removeConsultation(consultation);
     }
 
+    public void spinnerLoading(Pane pane) {
+        spinner = new JFXSpinner();
+        spinner.setPrefSize(50, 50);
+        pane.getChildren().add(spinner);
+    }
+
+    public void removeSpinner(Pane pane) {
+        pane.getChildren().remove(spinner);
+    }
 
     // --------------------
     //  Consultation methods

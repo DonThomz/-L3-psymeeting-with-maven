@@ -118,11 +118,14 @@ public class PatientDetailsController extends ConsultationHistoric implements In
 
         // start loadConsultations service
         if (super.loadConsultations.getState() == Task.State.READY) {
+            super.spinnerLoading(box_consultations);
             super.loadConsultations.start();
         }
 
         // Setup services
         super.loadConsultations.setOnSucceeded(evt -> {
+            // remove spinner
+            super.removeSpinner(box_consultations);
             System.out.println("Task load consultation succeeded!");
             // run createBoxConsultations
             super.createBoxConsultations("patient_consultation_cell");
