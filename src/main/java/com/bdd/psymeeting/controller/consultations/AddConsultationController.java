@@ -121,11 +121,17 @@ public class AddConsultationController implements Initializable, InitController 
         }
     };
 
+    public static Service<Boolean> addPatientStatic = null;
+    public static Service<Boolean> updateNewConsultationStatic = null;
+
     // --------------------
     //   Initialize method
     // --------------------
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        addPatientStatic = addPatient;
+        updateNewConsultationStatic = updateNewConsultation;
 
         coupleBox.setVisible(false); // hide couple box
 
@@ -375,19 +381,14 @@ public class AddConsultationController implements Initializable, InitController 
     private boolean addPatient2ArrayList() {
         if (userExist()) { // check if user exist <==> email exit in database
             // check if name and last name is correct
-            try {
-                Patient tmp_patient = Patient.getPatientByEmail(email_field.getText());
-                if (tmp_patient != null) {
-                    if (tmp_patient.getName().toUpperCase().equals(name_field.getText().toUpperCase()) && tmp_patient.getLastName().toUpperCase().equals(last_name_field.getText().toUpperCase())) {
-                        patients.add(tmp_patient);
-                        return true;
-                    }
+            Patient tmp_patient = Patient.getPatientByEmail(email_field.getText());
+            if (tmp_patient != null) {
+                if (tmp_patient.getName().toUpperCase().equals(name_field.getText().toUpperCase()) && tmp_patient.getLastName().toUpperCase().equals(last_name_field.getText().toUpperCase())) {
+                    patients.add(tmp_patient);
+                    return true;
                 }
-                return false;
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-                return false;
             }
+            return false;
         } else { // create a patient and a user
             int lastPrimaryKeyPatient = Patient.getLastPrimaryKeyId();
             int lastPrimaryKeyUser = User.getLastUserId();

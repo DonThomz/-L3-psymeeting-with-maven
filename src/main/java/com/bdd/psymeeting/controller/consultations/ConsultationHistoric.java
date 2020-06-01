@@ -5,15 +5,21 @@
 package com.bdd.psymeeting.controller.consultations;
 
 import com.bdd.psymeeting.App;
+import com.bdd.psymeeting.controller.MainController;
 import com.bdd.psymeeting.model.Consultation;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXSpinner;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -31,12 +37,14 @@ public class ConsultationHistoric {
         protected Task<Boolean> createTask() {
             return new Task<>() {
                 @Override
-                protected Boolean call() throws Exception {
+                protected Boolean call() {
                     return setupBoxConsultations(); // init consultation
                 }
             };
         }
     };
+    public static Service<Boolean> loadConsultationsStatic = null;
+
     // FXML
     @FXML
     public StackPane stackPane;
@@ -60,6 +68,9 @@ public class ConsultationHistoric {
     protected JFXSpinner spinner;
 
     protected ConsultationHistoric() {
+
+        loadConsultationsStatic = loadConsultations;
+
         removeConsultationService.setOnSucceeded(event -> {
             if (removeConsultationService.getValue()) {
                 System.out.print("Task Remove consultation succeeded !");
@@ -165,7 +176,7 @@ public class ConsultationHistoric {
         // add body
         content.setBody(createBody(consultation));
 
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXDialog dialog = new JFXDialog(MainController.stackPaneStatic, content, JFXDialog.DialogTransition.CENTER);
         JFXButton done = new JFXButton("Fermer");
         JFXButton modify = new JFXButton("Modifier");
 
@@ -222,7 +233,7 @@ public class ConsultationHistoric {
             ioException.printStackTrace();
         }
 
-        JFXDialog dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.CENTER);
+        JFXDialog dialog = new JFXDialog(MainController.stackPaneStatic, dialogLayout, JFXDialog.DialogTransition.CENTER);
 
         JFXButton done = new JFXButton("Annuler");
         JFXButton save = new JFXButton("Sauvegarder");
@@ -257,12 +268,10 @@ public class ConsultationHistoric {
         // get Patients Info
         StringBuilder patientsInfo = new StringBuilder();
 
-        consultation.getPatients().forEach((id, patient_info) -> {
-            patientsInfo.append("| ")
-                    .append(patient_info.get(0)).append(" ")
-                    .append(patient_info.get(1)).append(" ")
-                    .append(patient_info.get(4)).append("\n");
-        });
+        consultation.getPatients().forEach((id, patient_info) -> patientsInfo.append("| ")
+                .append(patient_info.get(0)).append(" ")
+                .append(patient_info.get(1)).append(" ")
+                .append(patient_info.get(4)).append("\n"));
         if (consultation.isInRelation() && consultation.getPatients().size() > 1)
             patientsInfo.append("Les patients sont venues en couple");
 
@@ -293,43 +302,6 @@ public class ConsultationHistoric {
         @SuppressWarnings("SpellCheckingInspection") String format_date = new SimpleDateFormat("EEEE dd MMMM, yyyy à HH:mm",
                 Locale.FRANCE).format(date.getTime());
         return new Label("Consultation du " + format_date);
-    }
-
-    protected HBox dateBox(Consultation consultation) {
-        // date field
-        HBox consultationDateBox = new HBox();
-        consultationDateBox.setSpacing(20);
-        Label dateLabel = new Label("Date");
-        Region space = new Region();
-        space.setMinWidth(20);
-        JFXDatePicker datePicker = new JFXDatePicker();
-        datePicker.setValue(LocalDateTime.ofInstant(consultation.getDate().toInstant(), consultation.getDate().getTimeZone().toZoneId()).toLocalDate());
-        consultationDateBox.getChildren().addAll(dateLabel, space, datePicker);
-        return consultationDateBox;
-    }
-
-    protected HBox patientsBox(Consultation consultation) {
-
-        VBox consultationPatientListBox = new VBox();
-        consultationPatientListBox.setSpacing(20);
-
-        // find all patients
-        consultation.getPatients().forEach((k, patient) -> {
-            Label patientLabel = new Label(patient.get(0) + " " + patient.get(1));
-            consultationPatientListBox.getChildren().add(patientLabel);
-        });
-
-        HBox consultationPatientBox = new HBox();
-        consultationPatientBox.getChildren().add(consultationPatientListBox);
-
-        return consultationPatientBox;
-
-    }
-
-    protected HBox commentBox(Consultation consultation) {
-
-        return new HBox();
-
     }
 
 

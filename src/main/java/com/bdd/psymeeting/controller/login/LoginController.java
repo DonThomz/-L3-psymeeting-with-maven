@@ -11,11 +11,9 @@ import com.bdd.psymeeting.model.User;
 import javafx.animation.AnimationTimer;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
@@ -26,13 +24,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
 
 
 public class LoginController implements Initializable, InitController {
 
-    @FXML
-    private AnchorPane login_pane;
     @FXML
     private Button login_button;
     @FXML
@@ -65,7 +60,6 @@ public class LoginController implements Initializable, InitController {
     @FXML
     private CheckBox save_pwd_checkbox;
     private Label incorrect_text;
-    private ExecutorService exec;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,7 +104,7 @@ public class LoginController implements Initializable, InitController {
     }
 
 
-    public void login(ActionEvent actionEvent) {
+    public void login() {
         int[] i = {0};
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
@@ -155,7 +149,7 @@ public class LoginController implements Initializable, InitController {
         App.current_user = new User(username_field.getText());
 
         // load home scene
-        App.window.close();
+        //App.window.close();
 
         // remove incorrect_text label
         box_login.getChildren().remove(incorrect_text);
@@ -169,12 +163,6 @@ public class LoginController implements Initializable, InitController {
     public void loginFailed() {
         // Add incorrect_text label
         box_login.getChildren().add(incorrect_text);
-    }
-
-    private void resetFields() {
-        // After press login button --> reset field
-        username_field.setText(null);
-        password_field.setText(null);
     }
 
     private void createSaveFile() {

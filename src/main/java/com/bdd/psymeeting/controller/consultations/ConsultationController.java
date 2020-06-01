@@ -84,7 +84,6 @@ public class ConsultationController extends ConsultationHistoric implements Init
         setupController();
     }
 
-    @Override
     protected boolean setupBoxConsultations() {
         box_consultations.setSpacing(20);
 

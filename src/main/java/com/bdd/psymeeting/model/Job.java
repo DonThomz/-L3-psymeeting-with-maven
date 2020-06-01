@@ -109,7 +109,7 @@ public class Job {
     /**
      * create the Job in DB with local state.
      *
-     * @param jobs
+     * @param jobs new jobs to be insert
      * @return true if succeeded
      */
     public static boolean insertJobs(ArrayList<Job> jobs) throws SQLException {
