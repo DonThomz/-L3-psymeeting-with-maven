@@ -87,9 +87,9 @@ public class ServiceDB {
             this.comboPooledDataSource.setUser(usernameTest);
             this.comboPooledDataSource.setPassword(passwordTest);
 
-            this.comboPooledDataSource.setMinPoolSize(5);
-            this.comboPooledDataSource.setAcquireIncrement(5);
-            this.comboPooledDataSource.setMaxPoolSize(20);
+            this.comboPooledDataSource.setMinPoolSize(2);
+            this.comboPooledDataSource.setAcquireIncrement(2);
+            this.comboPooledDataSource.setMaxPoolSize(5);
 
             this.comboPooledDataSource.setAcquireRetryAttempts(0);
 
