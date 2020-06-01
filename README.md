@@ -16,11 +16,17 @@ Projet Base de Données L3 2019-2020
 
 ### Executable
 
+Prérequis : avoir Java >= 11 comme Java par défault sur le système
+
 Dans le dossier shade lancer la commande :
 
 ```
 java -jar L3-PsyMeeting.jar
 ```
+
+Identifiant : 
+user : admin
+password : adminpwd
 
 ### Build le projet
 
