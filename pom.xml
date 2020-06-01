@@ -85,6 +85,8 @@
                         <option>javafx.graphics/com.sun.javafx.stage=com.jfoenix</option>
                         <option>--add-exports</option>
                         <option>javafx.base/com.sun.javafx.event=com.jfoenix</option>
+                        <option>--add-exports</option>
+                        <option>javafx.graphics/com.sun.javafx.scene=com.jfoenix</option>
                         <!--
                             Refer : https://github.com/jfoenixadmin/JFoenix/issues/889#issuecomment-450744122
                             In order to make jfoenix works, it should need less and doesn't need all of these.
