@@ -44,11 +44,11 @@ public class PatientDetailsController extends ConsultationHistoric implements In
     public VBox box_consultations;
     public Label infoEditLabel;
     // Attributes
-    protected Patient patient;
+    protected static Patient patient;
     private RequiredFieldValidator validator_field;
-    private ArrayList<Job> jobs;
+    private static ArrayList<Job> jobs;
 
-    final Service<Boolean> updateUserDetails = new Service<>() {
+    public static final Service<Boolean> updateUserDetails = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
             return new Task<>() {
@@ -256,13 +256,6 @@ public class PatientDetailsController extends ConsultationHistoric implements In
         dialog.show();
     }
 
-    private boolean validField() { // check if fields are not empty
-        return !name_field.getText().isEmpty()
-                && !last_name_field.getText().isEmpty()
-                && !email_field.getText().isEmpty()
-                && birthday_field.getValue() != null;
-    }
-
     private boolean validJobField(JFXTextField jobNameField, JFXDatePicker jobDateField) {
         return !jobNameField.getText().isEmpty() && jobDateField.getValue() != null;
     }
@@ -272,17 +265,6 @@ public class PatientDetailsController extends ConsultationHistoric implements In
             jobNameField.validate();
         if (jobDateField.getValue() == null)
             jobDateField.validate();
-    }
-
-    private void validatePriorityField() { // add require validation if priority fields are empty
-        if (name_field.getText().isEmpty())
-            name_field.validate();
-        if (last_name_field.getText().isEmpty())
-            last_name_field.validate();
-        if (email_field.getText().isEmpty())
-            email_field.validate();
-        if (birthday_field.getValue() == null)
-            birthday_field.validate();
     }
 
     private void addListenerValidationField(JFXTextField field) {

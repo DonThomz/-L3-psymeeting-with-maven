@@ -47,7 +47,7 @@ public class PatientFormController implements Initializable, InitController {
 
     private ArrayList<Job> jobs;
 
-    final Service<Boolean> addingPatientService = new Service<>() {
+    public final Service<Boolean> addingPatientService = new Service<>() {
         @Override
         protected Task<Boolean> createTask() {
             return new Task<>() {
@@ -64,9 +64,13 @@ public class PatientFormController implements Initializable, InitController {
         }
     };
 
+    public static Service<Boolean> addingPatientStatic = null;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        addingPatientStatic = addingPatientService;
 
         jobs = new ArrayList<>();
 

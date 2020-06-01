@@ -12,6 +12,13 @@ open module com.bdd.psymeeting {
     // add icon pack modules
     requires org.kordamp.ikonli.fontawesome5;
     //opens com.bdd.psymeeting to javafx.fxml;
-
+    exports com.bdd.psymeeting.model;
+    exports com.bdd.psymeeting.model.tools;
+    exports com.bdd.psymeeting.controller;
+    exports com.bdd.psymeeting.controller.consultations;
+    exports com.bdd.psymeeting.controller.home;
+    exports com.bdd.psymeeting.controller.login;
+    exports com.bdd.psymeeting.controller.others;
+    exports com.bdd.psymeeting.controller.patients;
     exports com.bdd.psymeeting;
 }

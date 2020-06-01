@@ -13,9 +13,8 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.*?>
 <?import java.net.URL?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="100.0" prefHeight="100.0" prefWidth="1200.0"
-            xmlns="http://javafx.com/javafx/8.0.241"
-            fx:controller="com.bdd.psymeeting.controller.others.TopBarController">
+<AnchorPane maxHeight="100.0" minHeight="100.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bdd.psymeeting.controller.others.TopBarController">
     <stylesheets>
         <URL value="@../stylesheets/top_bar.css"/>
         <URL value="@../stylesheets/app.css"/>
@@ -31,7 +30,7 @@
         </JFXButton>
         <Region layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="35.0" HBox.hgrow="ALWAYS"/>  <!-- MENU -->
 
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="638.0" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
 
             <HBox alignment="CENTER" HBox.hgrow="NEVER"> <!-- HOME LINK -->
                 <HBox.margin>

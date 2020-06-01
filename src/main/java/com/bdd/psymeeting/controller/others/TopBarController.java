@@ -57,7 +57,7 @@ public class TopBarController implements Initializable {
         // create new task
         Task<String> fullNameTask = new Task<>() {
             @Override
-            protected String call() throws Exception {
+            protected String call() {
                 //System.out.println(Thread.currentThread().getName());
                 return User.getUserFullName(username);
             }
@@ -74,7 +74,7 @@ public class TopBarController implements Initializable {
 
     }
 
-    public void logout(ActionEvent actionEvent) {
+    public void logout() {
 
         // close database
         App.database.closeDatabase();
@@ -94,6 +94,9 @@ public class TopBarController implements Initializable {
         String current_scene = App.getCurrentScene();
         String target_scene = ((Hyperlink) actionEvent.getSource()).getId();
         target_scene = target_scene.split("_")[0] + "_scene";
+
+        System.err.println("RESET POOL CONNECTIONS");
+        App.database.resetPoolManager();
 
         assert current_scene != null;
         // only if the next scene is different
@@ -117,7 +120,7 @@ public class TopBarController implements Initializable {
         }
     }
 
-    public void add_consultation(ActionEvent actionEvent) {
+    public void add_consultation() {
         int[] i = {0};
         new AnimationTimer() {
             public void handle(long currentNanoTime) {

@@ -280,19 +280,15 @@ public class Patient {
         }
     }
 
-    public static Patient getPatientByEmail(String email) throws SQLException {
+    public static Patient getPatientByEmail(String email) {
         Patient patient = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try (Connection connection = App.database.getConnection()) {
-            preparedStatement = connection.prepareStatement("select\n" +
-                    "       u.PATIENT_ID,\n" +
-                    "       p.NAME,\n" +
-                    "       p.LAST_NAME\n" +
-                    "from USER_APP u\n" +
-                    "join PATIENT P on u.PATIENT_ID = P.PATIENT_ID\n" +
-                    "where u.EMAIL = '" + email + "'");
-            resultSet = preparedStatement.executeQuery();
+        try (Connection connection = App.database.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement("select\n" +
+                "       u.PATIENT_ID,\n" +
+                "       p.NAME,\n" +
+                "       p.LAST_NAME\n" +
+                "from USER_APP u\n" +
+                "join PATIENT P on u.PATIENT_ID = P.PATIENT_ID\n" +
+                "where u.EMAIL = '" + email + "'"); ResultSet resultSet = preparedStatement.executeQuery()) {
             if (resultSet.next()) {
                 patient = new Patient(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), false);
                 return patient;
@@ -300,14 +296,11 @@ public class Patient {
         } catch (SQLException throwable) {
             System.err.println("Error get patient with email " + email);
             throwable.printStackTrace();
-        } finally {
-            if (preparedStatement != null) preparedStatement.close();
-            if (resultSet != null) resultSet.close();
         }
         return patient;
     }
 
-    public static ArrayList<Patient> getPatientsProfiles() throws SQLException {
+    public static ArrayList<Patient> getPatientsProfiles() {
 
         ArrayList<Patient> list_patients = new ArrayList<>();
 
@@ -323,7 +316,7 @@ public class Patient {
         return list_patients;
     }
 
-    public static ArrayList<Patient> getSimplyPatientsProfiles() throws SQLException {
+    public static ArrayList<Patient> getSimplyPatientsProfiles() {
 
         ArrayList<Patient> list_patients = new ArrayList<>();
 
@@ -420,8 +413,8 @@ public class Patient {
 
             preparedStatement = connection.prepareStatement(request);
             preparedStatement.setInt(1, this.getPatientId());
-            preparedStatement.setString(2, this.getName().toUpperCase());
-            preparedStatement.setString(3, this.getLastName().toUpperCase());
+            preparedStatement.setString(2, this.getName());
+            preparedStatement.setString(3, this.getLastName());
             preparedStatement.setDate(4, new Date(this.getBirthday().getTime()));
             preparedStatement.setString(5, this.getGender());
             preparedStatement.setString(6, this.getRelationship());
@@ -464,10 +457,10 @@ public class Patient {
 
             if (resultPatient && resultJob && resultUser) {
                 System.out.println("Commit patient");
-                //connection.commit(); // commit if no SQL error
+                connection.commit(); // commit if no SQL error
             } else {
                 System.out.println("Rollback patient");
-                //connection.rollback(savepoint);
+                connection.rollback(savepoint);
             }
 
         } catch (SQLException ex) {

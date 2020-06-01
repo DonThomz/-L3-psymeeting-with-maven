@@ -41,8 +41,8 @@ public class HomeController extends ConsultationHistoric implements Initializabl
 
     private ArrayList<AnchorPane> cells;
     private JFXDialog spinnerDialog;
-    private int indexWeek;
-    private final Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<ArrayList<Consultation>>() {
+    private static int indexWeek;
+    public static final Service<ArrayList<Consultation>> loadConsultationsWeek = new Service<>() {
         @Override
         protected Task<ArrayList<Consultation>> createTask() {
             return new Task<>() {
@@ -84,6 +84,8 @@ public class HomeController extends ConsultationHistoric implements Initializabl
             previousPagination.setDisable(false);
             nextPagination.setDisable(false);
             loadConsultationsWeek.reset();
+
+
         });
         loadConsultationsWeek.setOnFailed(event -> {
             System.out.println("Loading consultation of the week failed !");
@@ -117,9 +119,7 @@ public class HomeController extends ConsultationHistoric implements Initializabl
     }
 
     private void cleanPreviousConsultations() {
-        cells.forEach(cell -> {
-            scheduleGrid.getChildren().remove(cell);
-        });
+        cells.forEach(cell -> scheduleGrid.getChildren().remove(cell));
         cells.clear();
     }
 
@@ -154,6 +154,7 @@ public class HomeController extends ConsultationHistoric implements Initializabl
 
             //add event to button
             consultation.setOnAction(event -> loadConsultationInfo(c));
+
         }
 
     }

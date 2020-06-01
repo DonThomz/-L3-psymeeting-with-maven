@@ -14,6 +14,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class PatientsController implements Initializable, InitController {
 
+
     public static ArrayList<Patient> list_patients;
     public static int current_patient_id;
     private JFXSpinner spinner;
@@ -31,7 +33,7 @@ public class PatientsController implements Initializable, InitController {
     // --------------------
     //  Services
     // --------------------
-    final Service<ArrayList<Patient>> loadPatients = new Service<>() {
+    public static final Service<ArrayList<Patient>> loadPatients = new Service<>() {
         @Override
         protected Task<ArrayList<Patient>> createTask() {
             return new Task<>() {
@@ -46,6 +48,7 @@ public class PatientsController implements Initializable, InitController {
     public VBox patient_list_box;
     public AnchorPane profilePane;
     public JFXButton addPatientButton;
+    public Region gap;
     // Attributes
     public HashMap<JFXButton, Boolean> profilesButtonsHashMap;
 
@@ -54,6 +57,10 @@ public class PatientsController implements Initializable, InitController {
     // --------------------
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println(App.current_resolution[1]);
+        if (App.current_resolution[1] - 400 > 0) gap.setPrefHeight(App.current_resolution[1] - 400);
+        else gap.setPrefHeight(0);
+
 
         addPatientButton.setOnAction(event -> loadAddPatientForm());
 
