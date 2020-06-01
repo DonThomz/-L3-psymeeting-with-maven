@@ -24,9 +24,9 @@ java -jar L3-PsyMeeting.jar
 
 ### Build le projet
 
-1. Pour build le projet :
+1. Ouvrir le projet depuis votre IDE ( nous avons utilisé Intellij ) 
 
-2. importer le projet depuis votre IDE
+2. Spéficier le JDK à utiliser ( >= java 11 )
 
 3. (si besoin faire charger le ***pom.xml***)
 
