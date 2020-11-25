@@ -4,9 +4,9 @@ Projet Base de Données L3 2019-2020
 
 ## Équipe
 
-- **Thomas Guillaume**
-- **Gabriel Dugny**
-- **Yorane Doare**
+- **Thomas**
+- **Gabriel**
+- **Yorane**
 
 ## Frameworks
 
